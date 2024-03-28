@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earnings</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="Dashboard.html">Dashboard</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Orders</a></li>
+            <li><a href="achievements.html">Achievements</a></li>
+        </ul>
+        </ul>
+    </nav>
+</header>
+<main>
+    <canvas id="earningsChart"></canvas>
+</main>
+
+<script>
+    // Sample data for earnings over time
+    const earningsData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        datasets: [{
+            label: 'Earnings',
+            data: [1000, 1500, 2000, 1800, 2200, 2500],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }]
+    };
+
+    // Create a line chart
+    const ctx = document.getElementById('earningsChart').getContext('2d');
+    const earningsChart = new Chart(ctx, {
+        type: 'line',
+        data: earningsData
+    });
+</script>
+</body>
+</html>
