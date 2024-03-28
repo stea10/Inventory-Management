@@ -9,18 +9,20 @@ import {
   Link,
 } from "react-router-dom";
 
-import Website from './Components/Website.jsx';
+import Dashboard from './Components/Dashboard.jsx';
 import Achievement from './Components/Achievements.jsx';
-
-  
-
+import Product from './Components/Products.jsx';
+import Earnings from './Components/Earnings.jsx';
+import Orders from './Components/Orders.jsx';
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Website />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/achievements" element={<Achievement />} />
-        {/* Add more routes for other pages if needed */}
+        <Route path="/products" element={<Product />} />
+        <Route path="/earnings" element={<Earnings />} />
+        <Route path="/orders" element={<Orders />} />
       </Routes>
     </Router>
   );
