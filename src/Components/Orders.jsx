@@ -21,7 +21,15 @@ function Orders(){
                         <li><Link to="/earnings">Earnings</Link></li>
                     </ul>
                 </nav>
+                <h1>Orders</h1>
             </header>
+            <div className="container">
+                <div className="Order List">  
+                   <h1>Order List</h1>
+                   
+                </div>
+
+            </div>
         </div>
     );
 }

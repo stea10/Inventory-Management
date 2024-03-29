@@ -20,7 +20,7 @@ function Achievement() {
             <li><Link to="/earnings">Earnings</Link></li>
           </ul>
         </nav>
-            <h1>Inventory Management Dashboard</h1>
+            <h1>Inventory Management Achievement</h1>
         </header>
         <div className="container">
             <div className="achievements">

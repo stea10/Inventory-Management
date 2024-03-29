@@ -21,6 +21,7 @@ function Earnings(){
                         <li><Link to="/products">Products</Link></li>
                     </ul>
                 </nav>
+                <h1>Earnings</h1>
             </header>
         </div>
     );

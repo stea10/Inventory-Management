@@ -8,12 +8,15 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-
+import { db } from './firebase.js';
 import Dashboard from './Components/Dashboard.jsx';
 import Achievement from './Components/Achievements.jsx';
 import Product from './Components/Products.jsx';
 import Earnings from './Components/Earnings.jsx';
 import Orders from './Components/Orders.jsx';
+
+
+
 function App() {
   return (
     <Router>
