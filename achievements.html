@@ -1,23 +1,14 @@
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Link,
-  } from "react-router-dom";
-
-function Achievement() {
-    return <>
-        <meta charSet="UTF-8" />
+<meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Inventory Management Achievement</title>
         <link rel="stylesheet" href="App.css" />
         <header>
         <nav>
           <ul>
-            <li><Link to="/">Dashboard</Link></li>
-            <li><Link to="/products">Products</Link></li>
-            <li><Link to="/orders">Orders</Link></li>
-            <li><Link to="/earnings">Earnings</Link></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="productsearch.html">Products</a></li>
+            <li><a href="orders.html">Orders</a></li>
+            <li><a href="earnings.html">Earnings</a></li>
           </ul>
         </nav>
             <h1>Inventory Management Achievement</h1>
@@ -47,9 +38,4 @@ function Achievement() {
                 </div>
             </div>
         </div>
-    </>
-}
-
-
-
-export default Achievement;
+    
