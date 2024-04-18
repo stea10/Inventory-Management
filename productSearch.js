@@ -1,35 +1,32 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js';
-import { getFirestore, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js';
+const firebaseConfig = {
 
+  apiKey: "AIzaSyDKJcKkA6yD0VH5wTLi2SnGGn4X01VMMUE",
 
+  authDomain: "productmanagement-56c0a.firebaseapp.com",
 
-  const firebaseConfig = {
+  databaseURL: "https://productmanagement-56c0a-default-rtdb.firebaseio.com",
 
-    apiKey: "AIzaSyDKJcKkA6yD0VH5wTLi2SnGGn4X01VMMUE",
+  projectId: "productmanagement-56c0a",
 
-    authDomain: "productmanagement-56c0a.firebaseapp.com",
+  storageBucket: "productmanagement-56c0a.appspot.com",
 
-    databaseURL: "https://productmanagement-56c0a-default-rtdb.firebaseio.com",
+  messagingSenderId: "682658474182",
 
-    projectId: "productmanagement-56c0a",
+  appId: "1:682658474182:web:6301f4b9cbfb9bcb054fc7",
 
-    storageBucket: "productmanagement-56c0a.appspot.com",
+  measurementId: "G-7ZJLZH9C0P"
 
-    messagingSenderId: "682658474182",
+};
 
-    appId: "1:682658474182:web:6301f4b9cbfb9bcb054fc7",
+firebase.initializeApp(firebaseConfig);
 
-    measurementId: "G-7ZJLZH9C0P"
-
-  };
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
+// Reference to Firestore database
+const db = firebase.firestore();
+// Reference to the 'Product' collection
 const productRef = collection(db, 'Product');
 
 // Get the product-list element
-const productList = document.getElementById('product-list');
+const productList = document.getElementById('product_list');
 
 // Function to fetch and display products
 async function displayProducts() {
