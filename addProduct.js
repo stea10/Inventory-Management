@@ -39,7 +39,15 @@ const stockAmount = parseInt(form['stock-amount'].value); // Parse stock amount 
 const supplier = form['supplier'].value;
 let newProductRef = db.collection('Product').doc(productType).collection('Items').doc();
 
-  newProductRef.set({
+newProductRef.set({
+  name: name,
+  color: color,
+  price: price,
+  stockAmount: stockAmount,
+  supplier : supplier
+})
+.then(() => {
+  db.collection("All Products").doc(newProductRef.id).set({
     name: name,
     color: color,
     price: price,
@@ -47,29 +55,35 @@ let newProductRef = db.collection('Product').doc(productType).collection('Items'
     supplier : supplier
   })
   .then(() => {
-    console.log('Product added with ID: ', newProductRef.id);
-    alert('Product added successfully!');
-    form.reset();
-
-    // Add the product ID to the supplier document
-    db.collection('Supplier').doc(supplier).set({ [newProductRef.id]: true }, { merge: true })
-      .then(() => {
-        console.log('Supplier updated with product ID: ', newProductRef.id);
-
-        // Delete the dummy field
-        db.collection('Product').doc(productType).update({ dummyField: firebase.firestore.FieldValue.delete() })
-          .then(() => {
-            console.log('Dummy field deleted');
-          })
-          .catch((error) => {
-            console.error('Error deleting dummy field: ', error);
-          });
-      })
-      .catch((error) => {
-        console.error('Error updating supplier: ', error);
-      });
+    console.log('Product added to All Products with ID: ', newProductRef.id);
   })
   .catch((error) => {
-    console.error('Error adding product: ', error);
+    console.error('Error adding product to All Products: ', error);
   });
+
+  console.log('Product added with ID: ', newProductRef.id);
+  alert('Product added successfully!');
+  form.reset();
+
+  // Add the product ID to the supplier document
+  db.collection('Supplier').doc(supplier).set({ [newProductRef.id]: true }, { merge: true })
+    .then(() => {
+      console.log('Supplier updated with product ID: ', newProductRef.id);
+
+      // Delete the dummy field
+      db.collection('Product').doc(productType).update({ dummyField: firebase.firestore.FieldValue.delete() })
+        .then(() => {
+          console.log('Dummy field deleted');
+        })
+        .catch((error) => {
+          console.error('Error deleting dummy field: ', error);
+        });
+    })
+    .catch((error) => {
+      console.error('Error updating supplier: ', error);
+    });
+})
+.catch((error) => {
+  console.error('Error adding product: ', error);
+});
 });
