@@ -1,5 +1,6 @@
-import firebase from '@firebase/app'; // Import the base Firebase module
-import '@firebase/firestore'; // Import Firestore from Firebase
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js';
+import { getFirestore, collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js';
+
 
 const firebaseConfig = {
 
@@ -25,14 +26,16 @@ const app = initializeApp(firebaseConfig);
 
 // Reference to Firestore database
 const db = getFirestore(app);
-
-const productRef = db.collection('All Products');
-// Get the product-list element
-const productList = document.getElementById('product_list');
+const productRef = collection(db, 'All Products');
 
 // Function to fetch and display products
 async function displayProducts() {
-  const querySnapshot = await productRef.get();
+  const querySnapshot = await getDocs(productRef);
+  const productList = document.getElementById('product_list');
+  if (!productList) {
+    console.error('Product list element not found.');
+    return;
+  }
   productList.innerHTML = ''; // Clear previous products
   querySnapshot.forEach((doc) => {
     const productDiv = document.createElement('div');
@@ -56,10 +59,11 @@ async function searchProducts() {
   displayProducts(querySnapshot);
 }
 
-// Call displayProducts to fetch and display products
-
-displayProducts();
+// Add event listener for DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+  // Call displayProducts to fetch and display products
+  displayProducts();
+});
 
 // Export the searchProducts function to make it accessible in the HTML file
 export { searchProducts };
-
