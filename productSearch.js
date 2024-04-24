@@ -1,3 +1,6 @@
+import firebase from '@firebase/app'; // Import the base Firebase module
+import '@firebase/firestore'; // Import Firestore from Firebase
+
 const firebaseConfig = {
 
   apiKey: "AIzaSyDKJcKkA6yD0VH5wTLi2SnGGn4X01VMMUE",
@@ -18,19 +21,18 @@ const firebaseConfig = {
 
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 // Reference to Firestore database
-const db = firebase.firestore();
-// Reference to the 'Product' collection
-const productRef = collection(db, 'Product');
+const db = getFirestore(app);
 
+const productRef = db.collection('All Products');
 // Get the product-list element
 const productList = document.getElementById('product_list');
 
 // Function to fetch and display products
 async function displayProducts() {
-  const querySnapshot = await getDocs(productRef);
+  const querySnapshot = await productRef.get();
   productList.innerHTML = ''; // Clear previous products
   querySnapshot.forEach((doc) => {
     const productDiv = document.createElement('div');
@@ -55,6 +57,7 @@ async function searchProducts() {
 }
 
 // Call displayProducts to fetch and display products
+
 displayProducts();
 
 // Export the searchProducts function to make it accessible in the HTML file

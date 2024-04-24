@@ -1,3 +1,4 @@
+ 
  const firebaseConfig = {
 
     apiKey: "AIzaSyDKJcKkA6yD0VH5wTLi2SnGGn4X01VMMUE",
@@ -52,7 +53,8 @@ newProductRef.set({
     color: color,
     price: price,
     stockAmount: stockAmount,
-    supplier : supplier
+    supplier : supplier,
+    productType: productType
   })
   .then(() => {
     console.log('Product added to All Products with ID: ', newProductRef.id);
@@ -70,7 +72,7 @@ newProductRef.set({
     .then(() => {
       console.log('Supplier updated with product ID: ', newProductRef.id);
 
-      // Delete the dummy field
+      // Delete the dummy field from the product type document
       db.collection('Product').doc(productType).update({ dummyField: firebase.firestore.FieldValue.delete() })
         .then(() => {
           console.log('Dummy field deleted');
