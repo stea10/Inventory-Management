@@ -1,6 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js';
-import { getFirestore, collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js';
-
+import { getFirestore, collection, getDocs, query, where, doc, updateDoc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js';
 
 const firebaseConfig = {
 
@@ -45,9 +44,19 @@ async function displayProducts() {
       <p><strong>Color:</strong> ${doc.data().color}</p>
       <p><strong>Price:</strong> ${doc.data().price}</p>
       <p><strong>Stock Amount:</strong> ${doc.data().stockAmount}</p>
+      <button class="update-btn" data-id="${doc.id}">Update</button>
       <hr>
     `;
     productList.appendChild(productDiv);
+  });
+
+  // Add event listeners to update buttons
+  const updateButtons = document.querySelectorAll('.update-btn');
+  updateButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      const productId = event.target.getAttribute('data-id');
+      updateProduct(productId);
+    });
   });
 }
 
@@ -57,6 +66,36 @@ async function searchProducts() {
   const q = query(productRef, where('name', '>=', searchInput), where('name', '<=', searchInput + '\uf8ff'));
   const querySnapshot = await getDocs(q);
   displayProducts(querySnapshot);
+}
+
+async function updateProduct(productId) {
+  const productDocRef = doc(productRef, productId);
+  const productDocSnapshot = await getDoc(productDocRef);
+  if (productDocSnapshot.exists()) {
+    const productData = productDocSnapshot.data();
+    // Prompt the user for updated product information
+    const updatedName = prompt('Enter updated name:', productData.name);
+    const updatedProductType = prompt('Enter updated product type:', productData.productType);
+    const updatedColor = prompt('Enter updated color:', productData.color);
+    const updatedPrice = parseFloat(prompt('Enter updated price:', productData.price));
+    const updatedStockAmount = parseInt(prompt('Enter updated stock amount:', productData.stockAmount));
+    
+    // Update the product document in Firestore
+    await updateDoc(productDocRef, {
+      name: updatedName,
+      productType: updatedProductType,
+      color: updatedColor,
+      price: updatedPrice,
+      stockAmount: updatedStockAmount
+    });
+    
+    // Display a success message
+    alert('Product updated successfully!');
+    // Refresh the product list to reflect the changes
+    displayProducts();
+  } else {
+    console.error('Product not found.');
+  }
 }
 
 // Add event listener for DOMContentLoaded
