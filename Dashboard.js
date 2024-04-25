@@ -1,21 +1,6 @@
-
-const logoutButton = document.getElementById('logout_button');
-
-if (!logoutButton) {
-  console.error('Logout button not found.');
-  return;
-}
-
-// Add an event listener to the logout button
-logoutButton.addEventListener('click', async () => {
-  try {
-    // Sign out the user
-    await auth.signOut();
-    console.log('User signed out');
-  } catch (error) {
-    console.error('Error signing out:', error);
-  }
-});
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js';
+import { getAuth } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-auth.js';
+import { getFirestore, collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDKJcKkA6yD0VH5wTLi2SnGGn4X01VMMUE",
@@ -35,12 +20,13 @@ const firebaseConfig = {
     measurementId: "G-7ZJLZH9C0P"
 };
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 async function getTotalInventoryAmount() {
-    const productsRef = db.collection('All Products');
-    const snapshot = await productsRef.get();
+    const productsRef = collection(db, 'All Products');
+    const snapshot = await getDocs(productsRef);
     let totalInventoryAmount = 0;
     snapshot.forEach(doc => {
         totalInventoryAmount += doc.data().stockAmount;
@@ -61,8 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function displayLowestStockItems() {
-    const productsRef = db.collection('All Products');
-    const snapshot = await productsRef.where('stockAmount', '<=', 20).get();
+    const productsRef = collection(db, 'All Products');
+    const q = query(productsRef, where('stockAmount', '<=', 20));
+    const snapshot = await getDocs(q);
 
     const lowestStockItemsList = document.getElementById('lowest-stock-items-list');
     lowestStockItemsList.innerHTML = ''; // Clear previous items
@@ -81,6 +68,7 @@ async function displayLowestStockItems() {
 document.addEventListener('DOMContentLoaded', () => {
     displayLowestStockItems();
 });
+
 
 const salesData = [
     { month: 'Jan', sales: 1000 },
@@ -132,3 +120,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     createSalesChart(salesData);
 });
 
+function logout() {
+    auth.signOut().then(() => {
+        console.log('User signed out.');
+        window.location.href = 'login_page.html'; // Redirect to login page
+    }).catch((error) => {
+        console.error('Sign-out error:', error);
+        alert('An error occurred during logout.');
+    });
+}
+
+const logoutButton = document.getElementById('logoutButton');
+
+if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+        logout();
+    });
+}
+
+auth.onAuthStateChanged((user) => {
+    if (!user) {
+        // Redirect to login page if user is not signed in
+        window.location.href = 'login_page.html';
+    }
+});
