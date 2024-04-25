@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js';
-import { getFirestore, collection, getDocs, query, where, doc, updateDoc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js';
+import { getFirestore, collection, getDocs, query, where, doc, updateDoc, getDoc, deleteDoc } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js';
 
 const firebaseConfig = {
 
@@ -45,6 +45,7 @@ async function displayProducts() {
       <p><strong>Price:</strong> ${doc.data().price}</p>
       <p><strong>Stock Amount:</strong> ${doc.data().stockAmount}</p>
       <button class="update-btn" data-id="${doc.id}">Update</button>
+      <button class="delete-btn" data-id="${doc.id}">Delete</button>
       <hr>
     `;
     productList.appendChild(productDiv);
@@ -58,14 +59,53 @@ async function displayProducts() {
       updateProduct(productId);
     });
   });
+  const deleteButtons = document.querySelectorAll('.delete-btn');
+  deleteButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      const productId = event.target.getAttribute('data-id');
+      deleteProduct(productId);
+    });
+  });
+}
+async function deleteProduct(productId) {
+  const productDocRef = doc(productRef, productId);
+  await deleteDoc(productDocRef);
+  alert('Product deleted successfully!');
+  displayProducts();
 }
 
-// Function to search products
-async function searchProducts() {
-  const searchInput = document.getElementById('search-input').value.trim();
+// search products
+async function searchProducts(searchInput) {
   const q = query(productRef, where('name', '>=', searchInput), where('name', '<=', searchInput + '\uf8ff'));
   const querySnapshot = await getDocs(q);
-  displayProducts(querySnapshot);
+  const productList = [];
+  querySnapshot.forEach((doc) => {
+    productList.push(doc.data());
+  });
+  return productList;
+}
+
+document.getElementById('search-btn').addEventListener('click', async () => {
+  const searchInput = document.getElementById('search-input').value.trim();
+  const productList = await searchProducts(searchInput);
+  displaySearchResults(productList);
+});
+
+function displaySearchResults(productList) {
+  const searchResults = document.getElementById('search-results');
+  searchResults.innerHTML = ''; // Clear previous results
+  productList.forEach((productData) => {
+    const productDiv = document.createElement('div');
+    productDiv.innerHTML = `
+      <p><strong>Name:</strong> ${productData.name}</p>
+      <p><strong>Product Type:</strong> ${productData.productType}</p>
+      <p><strong>Color:</strong> ${productData.color}</p>
+      <p><strong>Price:</strong> ${productData.price}</p>
+      <p><strong>Stock Amount:</strong> ${productData.stockAmount}</p>
+      <hr>
+    `;
+    searchResults.appendChild(productDiv);
+  });
 }
 
 async function updateProduct(productId) {
@@ -89,20 +129,37 @@ async function updateProduct(productId) {
       stockAmount: updatedStockAmount
     });
     
-    // Display a success message
+    // Display message
     alert('Product updated successfully!');
-    // Refresh the product list to reflect the changes
+    // Refresh the product list
     displayProducts();
   } else {
     console.error('Product not found.');
   }
 }
 
-// Add event listener for DOMContentLoaded
+async function getTotalStockAmount() {
+  const querySnapshot = await getDocs(productRef);
+  let totalStockAmount = 0;
+
+  querySnapshot.forEach((doc) => {
+    totalStockAmount += doc.data().stockAmount;
+  });
+
+  // Update the element with id 'total_stock_amount' with the total stock amount
+  document.getElementById('total_stock_amount').innerHTML = totalStockAmount;
+
+  return totalStockAmount;
+}
+
+getTotalStockAmount().then((totalStockAmount) => {
+  console.log('Total Stock Amount:', totalStockAmount);
+});
+
 document.addEventListener('DOMContentLoaded', function() {
-  // Call displayProducts to fetch and display products
+  // Call displayProducts 
   displayProducts();
 });
 
-// Export the searchProducts function to make it accessible in the HTML file
+// Export the searchProducts 
 export { searchProducts };
