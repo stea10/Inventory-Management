@@ -1,17 +1,20 @@
-const logoutButton = document.getElementById('logoutButton');
 
-logoutButton.addEventListener('click', (event) => {
-    event.preventDefault();
-    signOut(auth)
-        .then(() => {
-            // Sign-out successful, redirect to login page
-            window.location.href = 'login.html';
-        })
-        .catch((error) => {
-            // An error occurred during sign out
-            console.error(error);
-            alert('An error occurred during sign out.');
-        });
+const logoutButton = document.getElementById('logout_button');
+
+if (!logoutButton) {
+  console.error('Logout button not found.');
+  return;
+}
+
+// Add an event listener to the logout button
+logoutButton.addEventListener('click', async () => {
+  try {
+    // Sign out the user
+    await auth.signOut();
+    console.log('User signed out');
+  } catch (error) {
+    console.error('Error signing out:', error);
+  }
 });
 
 const firebaseConfig = {
