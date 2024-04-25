@@ -7,14 +7,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
+<style>
+    body {
+        font-family: 'Press Start 2P', cursive;
+        background-image: url('pixel.jpg'); /* Replace 'your-image.jpg' with the path to your image */
+        background-size: cover; /* Ensure the image covers the entire background */
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100vh;
+    }
+    h2{
+        color: white;
+    }
+
+</style>
 <body>
 <header>
     <nav>
         <ul>
             <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="productsearch.html">Products</a></li>
-            <li><a href="orders.html">Orders</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Products</a>
+                <div class="dropdown-content">
+                    <a href="add_product.html">Add Product</a>
+                    <a href="productsearch.html">Product List</a>
+                </div>
+            </li>            
             <li><a href="earnings.html">Earnings</a></li>
 
         </ul>
@@ -23,7 +44,16 @@
 </header>
 <div id="achievements-list"></div>
 <p id="item-count"></p>
-<p id="total-stock-amount"></p>       
+<p id="total-stock-amount"></p>
+
+<div class="achieve">
+    <h2>Achievements</h2>
+    <div class="idk">Top Seller</div>
+    <div class="idk">Efficient Inventory Manager</div>
+    <div class="idk">Customer Satisfaction</div>
+    </div>
+</div>
+        
 </div>
 </body>
 </html>
