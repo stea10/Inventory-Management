@@ -9,25 +9,95 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inventory Management Dashboard</title>
 <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
 <header>
     <nav>
         <ul>
             <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="productsearch.html">Products</a></li>
-            <li><a href="orders.html">Orders</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Products</a>
+                <div class="dropdown-content">
+                    <a href="add_product.html">Add Product</a>
+                    <a href="productsearch.html">Product List</a>
+                </div>
+            </li>
             <li><a href="earnings.html">Earnings</a></li>
             <li><a href="achievements.html">Achievements</a></li>
         </ul>
     </nav>  
-    <div class="icons">
-        <div class="fas fa-sign-out-alt logout-button" id="logout-btn"></div> 
-        <div class="fas fa-bars" id="menu-btn"></div>
-    </div>
     <h1>Add Product</h1>
 </header>
-
+<style>
+    body {
+        font-family: 'Press Start 2P', cursive;
+        background-image: url('pixel.jpg'); 
+        background-size: cover; 
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
+    
+    header {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+    }
+    
+    nav {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
+    
+    main {
+        max-width: 600px;
+        margin: 0 auto; /* Center horizontally */
+        padding: 20px;
+        background-color: rgb(6, 178, 236);
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    label {
+        margin-bottom: 5px;
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 10px 20px;
+    }
+    
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
 <main>
     <form id="product-form">
         <label for="product-type">Product Type:</label>
