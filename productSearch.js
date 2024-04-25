@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js';
 import { getFirestore, collection, getDocs, query, where, doc, updateDoc, getDoc, deleteDoc } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js';
-
+import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.6/firebase-auth.js';
 const firebaseConfig = {
 
   apiKey: "AIzaSyDKJcKkA6yD0VH5wTLi2SnGGn4X01VMMUE",
@@ -157,7 +157,26 @@ getTotalStockAmount().then((totalStockAmount) => {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Call displayProducts 
+  const auth = getAuth(app);
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+        const userRef = doc(db, 'Users', user.uid);
+        getDoc(userRef)
+            .then((docSnapshot) => {
+                if (docSnapshot.exists()) {
+                    const userData = docSnapshot.data();
+                    if (userData.role !== 'admin') {
+                        // If the user is not an admin, hide the "Add Product" link
+                        const addProductListItem = document.getElementById('addProductListItem');
+                        addProductListItem.style.display = 'none';
+                    }
+                }
+            })
+            .catch((error) => {
+                console.error(`Error getting user data: ${error}`);
+            });
+    }
+});
   displayProducts();
 });
 

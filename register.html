@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script type="module" src='register.js'></script>
+
+<head>
+    <meta charset='utf-8'>
+    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Register</h2>
+                <form id="registerForm">
+                    <label for="newname">Name:</label><br>
+                    <input type="text" id="newname" name="newname"><br>
+                    <label for="newemail">Email:</label><br>
+                    <input type="text" id="newemail" name="newemail"><br>
+                    <label for="newpassword">Password:</label><br>
+                    <input type="password" id="newpassword" name="newpassword"><br>
+                    <label for="role">Role:</label><br>
+                    <input type="radio" id="admin" name="role" value="admin">
+                    <label for="admin">Admin</label><br>
+                    <input type="radio" id="customer" name="role" value="customer">
+                    <label for="customer">Customer</label><br>
+                    <input type="submit" value="Register">
+                </form>
+                <button id = "backButton">Back</button>
+        </div>
+    </div>
+
+</body>
+</html>
