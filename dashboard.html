@@ -1,61 +1,76 @@
-<meta charSet="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Inventory Management Dashboard</title>
-<link rel="stylesheet" href="style.css" />
-<header>
-<nav>
-        <ul>
-          <li class="dropdown">
-            <a href="#" class="dropbtn">Products</a>
-            <div class="dropdown-content">
-                <a href="add_product.html">Add Product</a>
-                <a href="productsearch.html">Product List</a>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Products</a>
+                    <div class="dropdown-content">
+                        <a href="add_product.html">Add Product</a>
+                        <a href="productsearch.html">Product List</a>
+                    </div>
+                </li>
+                <li><a href="earnings.html">Earnings</a></li>
+                <li><a href="achievements.html">Achievements</a></li>
+                <li><a href="#" id="logoutButton">Logout</a></li>
+            </ul>
+        </nav>
+
+        <h1>Inventory Management Dashboard</h1>
+    </header>
+
+    <div class="container">
+
+        <div class="dashboard">
+
+            <div class="card">
+                <h2>Total Inventory</h2>
+                <p id="total-inventory"></p>
             </div>
-          </li><a href="orders.html">Orders</a></li>
-          <li><a href="earnings.html">Earnings</a></li>
-          <li><a href="achievements.html">Achievements</a></li>
-          <li><a href="login_page.html" id="logoutButton">Logout</a></li> 
 
-        </ul>
-      </nav>
-  <h1>Inventory Management Dashboard</h1>
-</header>
-<h1>Inventory Management Dashboard</h1>
-</header>
-<div class="container">
+            <div class="card">
+                <h2>Low Stock Items</h2>
+                <div id="lowest-stock-items-list"></div>
+            </div>
 
-    <div class="dashboard">
+            <div class="card">
+                <h2>Orders Pending</h2>
+                <p>10</p>
+            </div>
 
-        <div class="card">
-            <h2>Total Inventory</h2>
-            <p id="total-inventory"></p>
-        </div>
-    
-        <div class="card">
-            <h2>Low Stock Items</h2>
-            <div id="lowest-stock-items-list"></div>
-        </div>
-
-        <div class="card">
-            <h2>Orders Pending</h2>
-            <p>10</p>
-        </div>
-
-        <div class="card">
-            <h2>Revenue</h2>
-            <p>$100,000</p>
-        </div>
-        <div class="achievements">
-            <h2>Achievements</h2>
-            <div class="badge">Top Seller</div>
-            <div class="badge">Efficient Inventory Manager</div>
-            <div class="badge">Customer Satisfaction</div>
+            <div class="card">
+                <h2>Revenue</h2>
+                <p>$100,000</p>
+            </div>
+            <div class="achievements">
+                <h2>Achievements</h2>
+                <div class="badge">Top Seller</div>
+                <div class="badge">Efficient Inventory Manager</div>
+                <div class="badge">Customer Satisfaction</div>
             </div>
         </div>
         <p></p>
         <div class="trend">
-          <h2>Sales Trend</h2>
-          <canvas id="sales-chart" style="max-height: 400px;"></canvas>
-      </div>    
+            <h2>Sales Trend</h2>
+            <canvas id="sales-chart" style="max-height: 400px;"></canvas>
+        </div>
+    </div>
+
+    <!-- JavaScript imports and script execution -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="Dashboard.js"></script>
 </body>
+
 </html>
