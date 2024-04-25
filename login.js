@@ -18,4 +18,3 @@ firebase.auth().signInWithEmailAndPassword(email,password)
     var errorCode = error.code;
     var errorMessage = error.message;
 });
-
