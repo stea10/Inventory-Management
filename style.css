@@ -84,3 +84,17 @@ nav a:hover {
     margin-right: 5px;
     border-radius: 5px;
 }
+
+.progress-bar {
+    width: 200px; 
+    height: 20px; 
+    background-color: lightgray;
+    border-radius: 5px;
+    overflow: hidden; 
+  }
+  
+  .progress-bar-inner {
+    height: 100%;
+    background-color: green;
+    transition: width 0.5s; 
+  }
