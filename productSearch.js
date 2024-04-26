@@ -60,6 +60,7 @@ async function displayProducts() {
       updateProduct(productId);
     });
   });
+
   const deleteButtons = document.querySelectorAll('.delete-btn');
   deleteButtons.forEach((button) => {
     button.addEventListener('click', (event) => {
@@ -92,7 +93,7 @@ document.getElementById('search-btn').addEventListener('click', async () => {
   displaySearchPopup(productList);
 });
 
-function displaySearchAlert(productList) {
+async function displaySearchPopup(productList) {
   let alertText = 'Search Results:\n\n';
   productList.forEach((productData) => {
     alertText += `
@@ -106,8 +107,6 @@ function displaySearchAlert(productList) {
   });
   alert(alertText);
 }
-
-
 
 
 async function updateProduct(productId) {
@@ -139,7 +138,6 @@ async function updateProduct(productId) {
     console.error('Product not found.');
   }
 }
-
 
 document.addEventListener('DOMContentLoaded', function() {
   const auth = getAuth(app);
