@@ -44,6 +44,7 @@ async function displayProducts() {
       <p><strong>Color:</strong> ${doc.data().color}</p>
       <p><strong>Price:</strong> ${doc.data().price}</p>
       <p><strong>Stock Amount:</strong> ${doc.data().stockAmount}</p>
+      <p><strong>Supplier:</strong> ${doc.data().supplier}</p>
       <button class="update-btn" data-id="${doc.id}">Update</button>
       <button class="delete-btn" data-id="${doc.id}">Delete</button>
       <hr>
@@ -88,7 +89,7 @@ async function searchProducts(searchInput) {
 document.getElementById('search-btn').addEventListener('click', async () => {
   const searchInput = document.getElementById('search-input').value.trim();
   const productList = await searchProducts(searchInput);
-  displaySearchAlert(productList);
+  displaySearchPopup(productList);
 });
 
 function displaySearchAlert(productList) {
@@ -105,6 +106,8 @@ function displaySearchAlert(productList) {
   });
   alert(alertText);
 }
+
+
 
 
 async function updateProduct(productId) {
