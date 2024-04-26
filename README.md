@@ -11,3 +11,5 @@ Starting the frontend:
     
 
   4. Once the server is running, a HTTP link will be displayed. Copy one of the links provided.
+
+  5. Start from login_page.html
